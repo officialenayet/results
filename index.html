@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>সার্টিফিকেট ভেরিফায়ার</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Multiple QR Code Libraries for Fallback -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/kjua@0.9.0/dist/kjua.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-certificate"></i>
+                    <h2>সার্টিফিকেট ভেরিফায়ার</h2>
+                </div>
+                <p class="subtitle">আপনার পরীক্ষার ফলাফল যাচাই করুন</p>
+            </div>
+        </header>
+
+
+
+        <!-- QR Code Notice Section - REMOVED as requested -->
+
+        <!-- Search Section -->
+        <section class="search-section" id="searchSection">
+            <div class="search-container">
+                <h2>রোল নাম্বার দিয়ে সার্চ করুন</h2>
+                <div class="search-form">
+                    <div class="input-group">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="admitNumber" placeholder="রোল নাম্বার লিখুন" maxlength="20">
+                    </div>
+                    <button onclick="searchResult()" class="search-btn">
+                        <i class="fas fa-search"></i>
+                        সার্চ করুন
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Loading Section -->
+        <section class="loading-section" id="loadingSection" style="display: none;">
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p id="loadingText">ডেটা লোড হচ্ছে...</p>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section class="result-section" id="resultSection" style="display: none;">
+            <div class="result-container">
+                <div class="result-header">
+
+                </div>
+
+                <div class="result-card" id="resultCard">
+                    <!-- Result content will be dynamically inserted here -->
+                </div>
+                <div class="system-note" id="systemNote">
+                    <!-- System note will be dynamically inserted here -->
+                </div>
+                <div class="result-actions">
+                    <button onclick="printResult()" class="action-btn print-btn">
+                        <i class="fas fa-print"></i>
+                        প্রিন্ট করুন
+                    </button>
+                    <button onclick="generateQR()" class="action-btn qr-btn">
+                        <i class="fas fa-qrcode"></i>
+                        QR কোড দেখুন
+                    </button>
+                    <button onclick="resetSearch()" class="action-btn reset-btn">
+                        <i class="fas fa-redo"></i>
+                        নতুন সার্চ
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Error Section -->
+        <section class="error-section" id="errorSection" style="display: none;">
+            <div class="error-container">
+                <div class="error-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <h3>কোনো ফলাফল পাওয়া যায়নি</h3>
+                <p id="errorMessage">দয়া করে আপনার রোল নাম্বার পুনরায় চেক করুন এবং আবার চেষ্টা করুন।</p>
+                <button onclick="resetSearch()" class="retry-btn">
+                    <i class="fas fa-redo"></i>
+                    আবার চেষ্টা করুন
+                </button>
+            </div>
+        </section>
+
+        <!-- QR Code Modal -->
+        <div class="modal" id="qrModal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fas fa-qrcode"></i> QR কোড সম্প্রসারণ!</h3>
+                    <button onclick="closeQRModal()" class="close-btn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>এই QR কোডটি স্ক্যান করে সরাসরি ফলাফল দেখা যাবে:</p>
+                    <div class="qr-code-container">
+                        <div id="qrCodeImage">
+                            <!-- QR Code will be generated here -->
+                        </div>
+                        <div class="qr-url">
+                            <input type="text" id="qrUrlInput" readonly>
+                            <button onclick="copyQRUrl()" class="copy-btn">
+                                <i class="fas fa-copy"></i>
+                                কপি করুন
+                            </button>
+                        </div>
+                    </div>
+                    <div class="qr-instructions">
+                        <h4>নির্দেশনা:</h4>
+                        <ul>
+                            <li>QR কোডটি স্ক্যান করুন যেকোনো QR কোড রিডার দিয়ে</li>
+                            <li>অথবা উপরের লিংকটি কপি করে শেয়ার করুন</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>&copy; ২০২৫ সার্টিফিকেট ভেরিফায়ার। সকল অধিকার সংরক্ষিত।</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
